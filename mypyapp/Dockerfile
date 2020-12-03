@@ -1,4 +1,4 @@
-FROM ubi7/ubi
+FROM registry.access.redhat.com/ubi7/ubi:latest
 RUN mkdir /opt/src
 COPY index.html /opt/src
 WORKDIR /opt/src
