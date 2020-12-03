@@ -3,7 +3,7 @@ $servername = "mysql";
 $username = getenv('MYSQL_USER');
 $password = getenv('MYSQL_PASSWORD');
 $dbname = getenv('MYSQL_DATABASE');
-
+print "<h1>Trying to connect to database</h1>";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
