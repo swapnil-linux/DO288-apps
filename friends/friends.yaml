@@ -1,0 +1,111 @@
+apiVersion: v1
+items:
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: friends
+      app.kubernetes.io/component: friends
+      app.kubernetes.io/instance: friends
+      app.kubernetes.io/name: php
+    name: friends
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: friends:latest
+    postCommit: {}
+    resources: {}
+    source:
+      contextDir: friends
+      git:
+        uri: http://github.com/swapnil-linux/DO288-apps
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: php:7.3
+          namespace: openshift
+      type: Source
+    triggers:
+    - github:
+        secret: Aev36vD8k-31tzuhSSlZ
+      type: GitHub
+    - generic:
+        secret: 0abf3iJ5fjGMUyDhNCuJ
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"friends:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"friends\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: friends
+      app.kubernetes.io/component: friends
+      app.kubernetes.io/instance: friends
+      app.kubernetes.io/name: php
+    name: friends
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        deployment: friends
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: friends
+      spec:
+        containers:
+        - image: ' '
+          name: friends
+          ports:
+          - containerPort: 8443
+            protocol: TCP
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: friends
+      app.kubernetes.io/component: friends
+      app.kubernetes.io/instance: friends
+      app.kubernetes.io/name: php
+    name: friends
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: 8443-tcp
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      deployment: friends
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
