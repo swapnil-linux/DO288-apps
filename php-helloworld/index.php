@@ -1,3 +1,3 @@
 <?php
-print "Hello, World V6 - " . $_SERVER['SERVER_ADDR'];
+print "Hello, World V1 - " . $_SERVER['SERVER_ADDR'];
 ?>
