@@ -4,4 +4,5 @@ COPY index.html /opt/src
 WORKDIR /opt/src
 EXPOSE 8080
 VOLUME /data
+LABEL author Swapnil Jain <swapnil@linux.com>
 CMD python -m SimpleHTTPServer 8080
