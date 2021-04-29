@@ -20,6 +20,9 @@ public class ServerHostEndPoint {
        e.printStackTrace();
     }
     String msg = "I am running on server "+host+" Version 3.13 
+
+asdsadasdas
+asdasd
     return Response.ok(msg).build();
   }
 }
